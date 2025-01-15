@@ -24,7 +24,6 @@ public class WhiteEnderman {
 
     public static void init() {
 
-
     }
 
     public static ResourceLocation id(String path) {

@@ -10,7 +10,7 @@ public class ModClientForge {
     }
 
     static void renderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(Init.TYPE,WhiteEndermanRenderer::new);
+        ModClient.registerEntityRenderers(event::registerEntityRenderer);
     }
 
 }

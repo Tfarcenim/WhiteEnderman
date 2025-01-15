@@ -1,5 +1,6 @@
 package tfar.whiteenderman;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.EnderEyesLayer;
@@ -16,6 +17,14 @@ public class WhiteEndermanRenderer extends EndermanRenderer {
         addLayer(new WhiteEnderEyesLayer<>(this));
     }
 
+    private static final float SCALE = 1.25f;
+
+    @Override
+    protected void scale(EnderMan pLivingEntity, PoseStack pPoseStack, float pPartialTickTime) {
+        pPoseStack.scale(SCALE,SCALE,SCALE);
+    }
+
+    @Override
     public ResourceLocation getTextureLocation(EnderMan $$0) {
         return ENDERMAN_LOCATION;
     }
