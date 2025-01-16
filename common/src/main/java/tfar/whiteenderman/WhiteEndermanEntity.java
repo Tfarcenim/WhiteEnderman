@@ -35,12 +35,13 @@ public class WhiteEndermanEntity extends EnderMan {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(10, new EndermanLeaveBlockGoal(this));
         this.goalSelector.addGoal(11, new EndermanTakeBlockGoal(this));
-        this.targetSelector.addGoal(1, new CustomEndermanLookForPlayerGoal(this, this::isAngryAt));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
-        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
 
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(EnderMan.class));
+        this.targetSelector.addGoal(2, new CustomEndermanLookForPlayerGoal(this, this::isAngryAt));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
+        this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
+
+        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this,new Class[]{EnderMan.class},new Class[]{EnderMan.class}));
 
     }
 
@@ -139,6 +140,11 @@ public class WhiteEndermanEntity extends EnderMan {
             }
 
         }
+    }
+
+    @Override
+    protected float getWaterSlowDown() {
+        return .98f;
     }
 
     @Override

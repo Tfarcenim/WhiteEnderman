@@ -7,9 +7,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
@@ -35,6 +38,7 @@ public class WhiteEndermanForge {
         bus.addListener(this::attrib);
         bus.addListener(ModDatagen::gather);
         bus.addListener(this::spawnPlacement);
+        bus.addListener(this::addToTab);
         if (FMLEnvironment.dist.isClient()) {
             ModClientForge.init(bus);
         }
@@ -43,6 +47,12 @@ public class WhiteEndermanForge {
         // Use Forge to bootstrap the Common mod.
         WhiteEnderman.init();
         
+    }
+
+    void addToTab(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(() -> Init.SPAWN_EGG);
+        }
     }
 
     void entityJoin(EntityJoinLevelEvent event) {
