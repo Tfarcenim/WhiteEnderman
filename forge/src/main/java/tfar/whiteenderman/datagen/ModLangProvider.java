@@ -10,7 +10,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.codehaus.plexus.util.StringUtils;
-import tfar.whiteenderman.Init;
 import tfar.whiteenderman.WhiteEnderman;
 
 import java.util.function.Supplier;
@@ -22,28 +21,28 @@ public class ModLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        addDefaultItem(() -> Init.SPAWN_EGG);
-        addDefaultEntityType(() -> Init.TYPE);
-       // addTranslatableComponent(ModCreativeTabs.TITLE,"Nations3");
-      //  addDefaultBlock(() -> ModBlocks.CLAIMING_TABLE);
-      //  addDefaultBlock(() -> ModBlocks.DEPOSIT_STATION);
+        addDefaultItem(WhiteEnderman.WHITE_ENDERMAN_SPAWN_EGG::get);
+        addDefaultEntityType(WhiteEnderman.WHITE_ENDERMAN::get);
+        // addTranslatableComponent(ModCreativeTabs.TITLE,"Nations3");
+        //  addDefaultBlock(() -> ModBlocks.CLAIMING_TABLE);
+        //  addDefaultBlock(() -> ModBlocks.DEPOSIT_STATION);
     }
 
 
     protected void addDefaultItem(Supplier<? extends Item> supplier) {
-        addItem(supplier,getNameFromItem(supplier.get()));
+        addItem(supplier, getNameFromItem(supplier.get()));
     }
 
     protected void addDefaultBlock(Supplier<? extends Block> supplier) {
-        addBlock(supplier,getNameFromBlock(supplier.get()));
+        addBlock(supplier, getNameFromBlock(supplier.get()));
     }
 
     protected void addDefaultEnchantment(Supplier<? extends Enchantment> supplier) {
-        addEnchantment(supplier,getNameFromEnchantment(supplier.get()));
+        addEnchantment(supplier, getNameFromEnchantment(supplier.get()));
     }
 
     protected void addDefaultEntityType(Supplier<EntityType<?>> supplier) {
-        addEntityType(supplier,getNameFromEntity(supplier.get()));
+        addEntityType(supplier, getNameFromEntity(supplier.get()));
     }
 
     public static String getNameFromItem(Item item) {
@@ -65,9 +64,9 @@ public class ModLangProvider extends LanguageProvider {
     protected void addTranslatableComponent(MutableComponent component, String text) {
         ComponentContents contents = component.getContents();
         if (contents instanceof TranslatableContents translatableContents) {
-            add(translatableContents.getKey(),text);
+            add(translatableContents.getKey(), text);
         } else {
-            throw new UnsupportedOperationException(component +" is not translatable");
+            throw new UnsupportedOperationException(component + " is not translatable");
         }
     }
 }

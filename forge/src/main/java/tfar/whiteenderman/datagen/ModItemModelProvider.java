@@ -13,9 +13,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent("white_enderman_spawn_egg",new ResourceLocation("item/template_spawn_egg"));
+        withExistingParent("white_enderman_spawn_egg", new ResourceLocation("item/template_spawn_egg"));
     }
-
 
 
 }

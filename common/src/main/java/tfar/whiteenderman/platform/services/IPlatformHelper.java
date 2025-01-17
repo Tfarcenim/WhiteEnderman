@@ -1,5 +1,13 @@
 package tfar.whiteenderman.platform.services;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
+
+import java.util.function.Supplier;
+
 public interface IPlatformHelper {
 
     /**
@@ -33,4 +41,11 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    <T extends Entity> Supplier<EntityType<T>> registerEntity(String id, Supplier<EntityType<T>> entity);
+
+    <T extends Item> Supplier<T> registerItem(String id, Supplier<T> item);
+
+    <E extends Mob> Supplier<SpawnEggItem> makeSpawnEgg(Supplier<EntityType<E>> entityType, int primaryEggColour,
+                                                        int secondaryEggColour, Item.Properties itemProperties);
 }

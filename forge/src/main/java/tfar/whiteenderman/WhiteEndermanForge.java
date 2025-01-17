@@ -7,8 +7,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,20 +22,27 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.registries.DeferredRegister;
 import tfar.whiteenderman.datagen.ModDatagen;
 
 @Mod(WhiteEnderman.MOD_ID)
 public class WhiteEndermanForge {
-    
+
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, WhiteEnderman.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, WhiteEnderman.MOD_ID);
+
     public WhiteEndermanForge() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER,WhiteEndermanConfigs.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, WhiteEndermanConfigs.SERVER_SPEC);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ENTITIES.register(bus);
+        ITEMS.register(bus);
+
         // This method is invoked by the Forge mod loader when it is ready
         // to load your mod. You can access Forge and Common code in this
         // project.
-        bus.addListener(this::register);
-        bus.addListener(this::attrib);
+        bus.<EntityAttributeCreationEvent>addListener(entityAttributeCreationEvent
+                -> WhiteEnderman.registerEntityAttributes(entityAttributeCreationEvent::put));
         bus.addListener(ModDatagen::gather);
         bus.addListener(this::spawnPlacement);
         bus.addListener(this::addToTab);
@@ -46,12 +53,12 @@ public class WhiteEndermanForge {
         MinecraftForge.EVENT_BUS.addListener(this::entityJoin);
         // Use Forge to bootstrap the Common mod.
         WhiteEnderman.init();
-        
+
     }
 
     void addToTab(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(() -> Init.SPAWN_EGG);
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(WhiteEnderman.WHITE_ENDERMAN_SPAWN_EGG::get);
         }
     }
 
@@ -64,7 +71,7 @@ public class WhiteEndermanForge {
                 if (replace) {
                     event.setCanceled(true);
                     CompoundTag compoundTag = enderMan.saveWithoutId(new CompoundTag());
-                    WhiteEndermanEntity whiteEndermanEntity = Init.TYPE.create(level);
+                    WhiteEndermanEntity whiteEndermanEntity = WhiteEnderman.WHITE_ENDERMAN.get().create(level);
                     whiteEndermanEntity.load(compoundTag);
                     level.addFreshEntity(whiteEndermanEntity);
                 }
@@ -72,23 +79,8 @@ public class WhiteEndermanForge {
         }
     }
 
-    void register(RegisterEvent event) {
-        if (event.getRegistryKey() == Registries.ENTITY_TYPE) {
-            event.register(Registries.ENTITY_TYPE,WhiteEnderman.id("white_enderman"),() -> Init.TYPE);
-        }
-
-        if (event.getRegistryKey() == Registries.ITEM) {
-            event.register(Registries.ITEM,WhiteEnderman.id("white_enderman_spawn_egg"),() -> Init.SPAWN_EGG);
-        }
-    }
-
-    void attrib(EntityAttributeCreationEvent event) {
-        event.put(Init.TYPE,WhiteEndermanEntity.createWhiteAttributes().build());
-    }
-
     void spawnPlacement(SpawnPlacementRegisterEvent event) {
-        event.register(Init.TYPE,SpawnPlacements.Type.ON_GROUND,Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(WhiteEnderman.WHITE_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
 
     }
-
 }

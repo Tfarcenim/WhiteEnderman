@@ -4,7 +4,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -41,13 +45,15 @@ public class WhiteEndermanEntity extends EnderMan {
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
 
-        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this,new Class[]{EnderMan.class},new Class[]{EnderMan.class}));
+        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this, new Class[]{EnderMan.class}, new Class[]{EnderMan.class}));
 
     }
 
     public static class CustomEndermanLookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
         private final EnderMan enderman;
-        /** The player */
+        /**
+         * The player
+         */
         @Nullable
         private Player pendingTarget;
         private int aggroTime;
