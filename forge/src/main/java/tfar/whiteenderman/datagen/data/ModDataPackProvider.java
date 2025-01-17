@@ -1,4 +1,5 @@
 package tfar.whiteenderman.datagen.data;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -10,7 +11,6 @@ import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.registries.ForgeRegistries;
 import tfar.whiteenderman.ForgeInit;
-import tfar.whiteenderman.Init;
 import tfar.whiteenderman.WhiteEnderman;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class ModDataPackProvider extends DatapackBuiltinEntriesProvider {
         context.register(ForgeInit.SPAWNS,
                 new ForgeBiomeModifiers.AddSpawnsBiomeModifier(context.lookup(Registries.BIOME)
                         .getOrThrow(ForgeInit.BIOME_SPAWNS), List.of(
-                        new MobSpawnSettings.SpawnerData(Init.TYPE,1,1,1)))
+                        new MobSpawnSettings.SpawnerData(WhiteEnderman.WHITE_ENDERMAN.get(), 1, 1, 1)))
         );
     }
 }

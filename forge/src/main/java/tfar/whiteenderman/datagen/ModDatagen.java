@@ -20,13 +20,13 @@ public class ModDatagen {
         PackOutput packOutput = dataGenerator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        dataGenerator.addProvider(client,new ModLangProvider(packOutput));
-        dataGenerator.addProvider(client,new ModItemModelProvider(packOutput,existingFileHelper));
+        dataGenerator.addProvider(client, new ModLangProvider(packOutput));
+        dataGenerator.addProvider(client, new ModItemModelProvider(packOutput, existingFileHelper));
         if (event.includeServer()) {
             dataGenerator.addProvider(true, ModLootTableProvider.create(packOutput));
             dataGenerator.addProvider(true, new ModRecipeProvider(packOutput));
-            dataGenerator.addProvider(true,new ModDataPackProvider(packOutput,lookupProvider));
-            dataGenerator.addProvider(true,new ModBiomeTagsProvider(packOutput,lookupProvider,existingFileHelper));
+            dataGenerator.addProvider(true, new ModDataPackProvider(packOutput, lookupProvider));
+            dataGenerator.addProvider(true, new ModBiomeTagsProvider(packOutput, lookupProvider, existingFileHelper));
         }
 
     }

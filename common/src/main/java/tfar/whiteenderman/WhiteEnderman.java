@@ -1,11 +1,19 @@
 package tfar.whiteenderman;
 
 import net.minecraft.resources.ResourceLocation;
-import tfar.whiteenderman.platform.Services;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tfar.whiteenderman.platform.services.IPlatformHelper;
+
+import java.util.ServiceLoader;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 //Really rare.
 //White skin, like the picture.
@@ -21,12 +29,24 @@ public class WhiteEnderman {
     public static final String MOD_ID = "whiteenderman";
     public static final String MOD_NAME = "WhiteEnderman";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+    public static final IPlatformHelper COMMON_PLATFORM = ServiceLoader.load(IPlatformHelper.class).findFirst().orElseThrow();
 
     public static void init() {
-
     }
 
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(MOD_ID,path);
+        return new ResourceLocation(MOD_ID, path);
+    }
+
+    public static final Supplier<EntityType<WhiteEndermanEntity>> WHITE_ENDERMAN = COMMON_PLATFORM.registerEntity(
+            "white_enderman", () -> EntityType.Builder.of(WhiteEndermanEntity::new, MobCategory.MONSTER)
+                    .sized(0.75f, 3.625F).clientTrackingRange(8).build("white_enderman"));
+
+    public static final Supplier<SpawnEggItem> WHITE_ENDERMAN_SPAWN_EGG
+            = COMMON_PLATFORM.registerItem("white_enderman_spawn_egg", COMMON_PLATFORM.makeSpawnEgg(WHITE_ENDERMAN,
+            0xffffffff, 0xeeeeeeee, new Item.Properties()));
+
+    public static void registerEntityAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier> register) {
+        register.accept(WHITE_ENDERMAN.get(), WhiteEndermanEntity.createWhiteAttributes().build());
     }
 }

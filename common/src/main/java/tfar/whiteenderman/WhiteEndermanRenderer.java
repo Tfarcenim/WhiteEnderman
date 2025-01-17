@@ -21,7 +21,7 @@ public class WhiteEndermanRenderer extends EndermanRenderer {
 
     @Override
     protected void scale(EnderMan pLivingEntity, PoseStack pPoseStack, float pPartialTickTime) {
-        pPoseStack.scale(SCALE,SCALE,SCALE);
+        pPoseStack.scale(SCALE, SCALE, SCALE);
     }
 
     @Override

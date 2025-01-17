@@ -52,6 +52,10 @@ subprojects {
             name = "Fuzs Mod Resources"
             url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
         }
+        maven {
+            name "TerraformersMC"
+            url "https://maven.terraformersmc.com/releases/"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {

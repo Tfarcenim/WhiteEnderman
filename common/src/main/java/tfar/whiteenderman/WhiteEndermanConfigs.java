@@ -11,7 +11,7 @@ public class WhiteEndermanConfigs {
 
     public WhiteEndermanConfigs(ForgeConfigSpec.Builder builder) {
         builder.push("general");
-        WHITE_ENDERMAN_CHANCE = builder.defineInRange("white_enderman_chance",.01,0,1);
+        WHITE_ENDERMAN_CHANCE = builder.defineInRange("white_enderman_chance", .01, 0, 1);
         builder.pop();
     }
 

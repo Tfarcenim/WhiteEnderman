@@ -1,6 +1,9 @@
 package tfar.whiteenderman;
 
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.phys.AABB;
 
@@ -8,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CustomHurtByTargetGoal extends HurtByTargetGoal {
-    private final Class<?extends Mob>[] toAlert;
+    private final Class<? extends Mob>[] toAlert;
 
     public CustomHurtByTargetGoal(PathfinderMob $$0, Class<?>[] $$1, Class<? extends Mob>[] toAlert) {
         super($$0, $$1);
