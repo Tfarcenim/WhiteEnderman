@@ -23,10 +23,11 @@ public class WhiteEndermanFabric implements ModInitializer {
         // project.
 
         // Use Fabric to bootstrap the Common mod.
-        WhiteEnderman.LOG.info("Hello Fabric world!");
         WhiteEnderman.init();
         WhiteEnderman.registerEntityAttributes(FabricDefaultAttributeRegistry::register);
-        setupSpawning();
+        if (WhiteEndermanConfigs.ALTERNATIVE_SPAWNING) {
+            setupSpawning();
+        }
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(itemGroup
                 -> itemGroup.accept(WhiteEnderman.WHITE_ENDERMAN_SPAWN_EGG.get()));
         ForgeConfigRegistry.INSTANCE.register(WhiteEnderman.MOD_ID, ModConfig.Type.SERVER, WhiteEndermanConfigs.SERVER_SPEC);
@@ -60,4 +61,6 @@ public class WhiteEndermanFabric implements ModInitializer {
         SpawnPlacements.register(WhiteEnderman.WHITE_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
     }
+
+
 }

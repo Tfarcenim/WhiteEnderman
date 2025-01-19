@@ -9,11 +9,12 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class CustomHurtByTargetGoal extends HurtByTargetGoal {
-    private final Class<? extends Mob>[] toAlert;
+    private final Set<Class<? extends Mob>> toAlert;
 
-    public CustomHurtByTargetGoal(PathfinderMob $$0, Class<?>[] $$1, Class<? extends Mob>[] toAlert) {
+    public CustomHurtByTargetGoal(PathfinderMob $$0, Class<?>[] $$1, Set<Class<? extends Mob>> toAlert) {
         super($$0, $$1);
         this.toAlert = toAlert;
         alertSameType = true;

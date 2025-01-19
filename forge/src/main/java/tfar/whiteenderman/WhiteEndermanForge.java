@@ -11,6 +11,8 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -63,19 +65,9 @@ public class WhiteEndermanForge {
     }
 
     void entityJoin(EntityJoinLevelEvent event) {
-        Level level = event.getLevel();
-        if (!event.loadedFromDisk() && !level.isClientSide) {
-            Entity entity = event.getEntity();
-            if (entity instanceof EnderMan enderMan && !(entity instanceof WhiteEndermanEntity)) {
-                boolean replace = level.getRandom().nextDouble() < WhiteEndermanConfigs.SERVER.WHITE_ENDERMAN_CHANCE.get();
-                if (replace) {
-                    event.setCanceled(true);
-                    CompoundTag compoundTag = enderMan.saveWithoutId(new CompoundTag());
-                    WhiteEndermanEntity whiteEndermanEntity = WhiteEnderman.WHITE_ENDERMAN.get().create(level);
-                    whiteEndermanEntity.load(compoundTag);
-                    level.addFreshEntity(whiteEndermanEntity);
-                }
-            }
+        boolean cancel = WhiteEnderman.onEntityJoinLevel(event.getEntity(),event.getLevel(),event.loadedFromDisk());
+        if (cancel) {
+            event.setCanceled(true);
         }
     }
 

@@ -7,6 +7,8 @@ public class WhiteEndermanConfigs {
     public static final WhiteEndermanConfigs SERVER;
     public static final ForgeConfigSpec SERVER_SPEC;
 
+    public static final boolean ALTERNATIVE_SPAWNING = false;
+
     public final ForgeConfigSpec.DoubleValue WHITE_ENDERMAN_CHANCE;
 
     public WhiteEndermanConfigs(ForgeConfigSpec.Builder builder) {

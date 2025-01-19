@@ -22,7 +22,7 @@ public class ModEntityLoot extends VanillaEntityLoot {
                 .withPool(LootPool
                         .lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(Items.ENDER_PEARL)
+                        .add(LootItem.lootTableItem(Items.ENDER_EYE)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))
                 )

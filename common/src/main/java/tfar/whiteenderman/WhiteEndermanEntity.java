@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class WhiteEndermanEntity extends EnderMan {
@@ -45,7 +46,7 @@ public class WhiteEndermanEntity extends EnderMan {
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
 
-        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this, new Class[]{EnderMan.class}, new Class[]{EnderMan.class}));
+        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this, new Class[]{EnderMan.class}, Set.of(EnderMan.class)));
 
     }
 
