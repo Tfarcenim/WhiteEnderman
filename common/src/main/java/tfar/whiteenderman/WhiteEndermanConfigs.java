@@ -10,10 +10,12 @@ public class WhiteEndermanConfigs {
     public static final boolean ALTERNATIVE_SPAWNING = false;
 
     public final ForgeConfigSpec.DoubleValue WHITE_ENDERMAN_CHANCE;
+    public final ForgeConfigSpec.BooleanValue AGGRESSIVE;
 
     public WhiteEndermanConfigs(ForgeConfigSpec.Builder builder) {
         builder.push("general");
         WHITE_ENDERMAN_CHANCE = builder.defineInRange("white_enderman_chance", .01, 0, 1);
+        AGGRESSIVE = builder.define("aggressive",false);
         builder.pop();
     }
 

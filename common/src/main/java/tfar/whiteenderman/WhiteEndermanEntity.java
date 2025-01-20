@@ -41,12 +41,17 @@ public class WhiteEndermanEntity extends EnderMan {
         this.goalSelector.addGoal(10, new EndermanLeaveBlockGoal(this));
         this.goalSelector.addGoal(11, new EndermanTakeBlockGoal(this));
 
-        this.targetSelector.addGoal(2, new CustomEndermanLookForPlayerGoal(this, this::isAngryAt));
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new CustomEndermanLookForPlayerGoal(this, this::isAngryAt));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        if (WhiteEndermanConfigs.SERVER.AGGRESSIVE.get()) {
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
+        }
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
+
+
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
 
-        this.targetSelector.addGoal(1, new CustomHurtByTargetGoal(this, new Class[]{EnderMan.class}, Set.of(EnderMan.class)));
+        this.targetSelector.addGoal(0, new CustomHurtByTargetGoal(this, new Class[]{EnderMan.class}, Set.of(EnderMan.class)));
 
     }
 
