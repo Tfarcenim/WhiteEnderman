@@ -7,6 +7,6 @@ public class ModClientFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModClient.registerEntityRenderers(EntityRendererRegistry::register);
+        ModClient.registerEntityRenderers();
     }
 }

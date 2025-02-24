@@ -10,7 +10,7 @@ public class ModClientForge {
     }
 
     static void renderers(EntityRenderersEvent.RegisterRenderers event) {
-        ModClient.registerEntityRenderers(event::registerEntityRenderer);
+        ModClient.registerEntityRenderers();
     }
 
 }
