@@ -39,7 +39,7 @@ public class WhiteEnderman {
     }
 
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static final Supplier<EntityType<WhiteEndermanEntity>> WHITE_ENDERMAN = COMMON_PLATFORM.registerEntity(

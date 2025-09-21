@@ -1,17 +1,17 @@
 package tfar.whiteenderman;
 
-import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.fml.config.ModConfig;
 
 public class WhiteEndermanFabric implements ModInitializer {
 
@@ -30,7 +30,7 @@ public class WhiteEndermanFabric implements ModInitializer {
         }
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(itemGroup
                 -> itemGroup.accept(WhiteEnderman.WHITE_ENDERMAN_SPAWN_EGG.get()));
-        ForgeConfigRegistry.INSTANCE.register(WhiteEnderman.MOD_ID, ModConfig.Type.SERVER, WhiteEndermanConfigs.SERVER_SPEC);
+        NeoForgeConfigRegistry.INSTANCE.register(WhiteEnderman.MOD_ID, ModConfig.Type.SERVER, WhiteEndermanConfigs.SERVER_SPEC);
     }
 
     // We might need to mixin into where mobs spawn to do this on Fabric... I'm not sure how to proceed there sadly.
@@ -56,9 +56,9 @@ public class WhiteEndermanFabric implements ModInitializer {
 
     void setupSpawning() {
         BiomeModifications.addSpawn(biome -> biome.getBiomeRegistryEntry().is(
-                        new ResourceLocation(WhiteEnderman.MOD_ID, "spawns")), MobCategory.MONSTER,
+                        WhiteEnderman.id( "spawns")), MobCategory.MONSTER,
                 WhiteEnderman.WHITE_ENDERMAN.get(), 1, 1, 1);
-        SpawnPlacements.register(WhiteEnderman.WHITE_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND,
+        SpawnPlacements.register(WhiteEnderman.WHITE_ENDERMAN.get(), SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
     }
 

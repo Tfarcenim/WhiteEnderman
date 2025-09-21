@@ -1,18 +1,18 @@
 package tfar.whiteenderman;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class WhiteEndermanConfigs {
     public static final WhiteEndermanConfigs SERVER;
-    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final ModConfigSpec SERVER_SPEC;
 
     public static final boolean ALTERNATIVE_SPAWNING = false;
 
-    public final ForgeConfigSpec.DoubleValue WHITE_ENDERMAN_CHANCE;
-    public final ForgeConfigSpec.BooleanValue AGGRESSIVE;
+    public final ModConfigSpec.DoubleValue WHITE_ENDERMAN_CHANCE;
+    public final ModConfigSpec.BooleanValue AGGRESSIVE;
 
-    public WhiteEndermanConfigs(ForgeConfigSpec.Builder builder) {
+    public WhiteEndermanConfigs(ModConfigSpec.Builder builder) {
         builder.push("general");
         WHITE_ENDERMAN_CHANCE = builder.defineInRange("white_enderman_chance", .01, 0, 1);
         AGGRESSIVE = builder.define("aggressive",false);
@@ -20,7 +20,7 @@ public class WhiteEndermanConfigs {
     }
 
     static {
-        final Pair<WhiteEndermanConfigs, ForgeConfigSpec> specPair2 = new ForgeConfigSpec.Builder().configure(WhiteEndermanConfigs::new);
+        final Pair<WhiteEndermanConfigs, ModConfigSpec> specPair2 = new ModConfigSpec.Builder().configure(WhiteEndermanConfigs::new);
         SERVER_SPEC = specPair2.getRight();
         SERVER = specPair2.getLeft();
     }

@@ -18,16 +18,16 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.function.Predicate;
 
 public class WhiteEndermanEntity extends EnderMan {
     public WhiteEndermanEntity(EntityType<? extends EnderMan> $$0, Level $$1) {
         super($$0, $$1);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 8.0F);
+        this.setPathfindingMalus(PathType.WATER, 8.0F);
     }
 
     @Override
